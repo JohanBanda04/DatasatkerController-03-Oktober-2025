@@ -2972,6 +2972,17 @@ where kode_satker='$kode_satker' and length(youtube)>10 AND tgl_input between '$
         $satker = DB::table('satker')->where('kode_satker', $kode_satker)->first();
         $satker_name = $satker->name ?? '';
 
+        //dd($namabulan);
+        //dd($bulan_dari);
+        //str_starts_with($bulan_dari, '0');
+        if (str_starts_with($bulan_dari, '0') || str_starts_with($bulan_sampai, '0') ) {
+            //echo "mengandung 0 di kiri";
+            $bulan_dari = str_replace('0',"",$bulan_dari);
+            $bulan_sampai = str_replace('0',"",$bulan_sampai);
+            //echo $bulan_dari; die;
+            //die;
+        }
+
         /* ============================================================
            HANDLE: LAPORAN LINK SOSIAL MEDIA
            ============================================================ */
@@ -3103,16 +3114,7 @@ where kode_satker='$kode_satker' and length(youtube)>10 AND tgl_input between '$
             }
 
             /*view cetak biasa*/
-            //dd($namabulan);
-            //dd($bulan_dari);
-            //str_starts_with($bulan_dari, '0');
-            if (str_starts_with($bulan_dari, '0') || str_starts_with($bulan_sampai, '0') ) {
-                //echo "mengandung 0 di kiri";
-                $bulan_dari = str_replace('0',"",$bulan_dari);
-                $bulan_sampai = str_replace('0',"",$bulan_sampai);
-                //echo $bulan_dari; die;
-                //die;
-            }
+
             return view('laporan.cetakrekapexternal_medialokal_permedia', compact(
                 'filteredBerita',
                 'namabulan',
